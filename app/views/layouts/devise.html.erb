@@ -14,15 +14,11 @@
         <a class="navbar-brand" href="#">Laisvė</a>
       </div>
       <ul class="nav navbar-nav">
-        <li class="active"><%= link_to 'Home', home_welcome_path, class: "navbar-link" %></li>
-        <% if current_user.present? %>
-        <li><%= link_to 'Your Account', user_path(current_user.id), class: "navbar-link" %></li>
-        <% end %>
         <% if user_signed_in? %>
           Signed in as <%= current_user.email %>
         <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
         <% else %>
-        <%= link_to 'Register', new_user_registration_path %></li> or <%= link_to 'Sign in', new_user_session_path %></li>
+        <%= link_to 'Register', new_user_registration_path %> or <%= link_to 'Sign in', new_user_session_path %>
         <% end %>
 
       </ul>

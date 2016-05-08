@@ -12,5 +12,12 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require maskedinput
 //= require turbolinks
+//= require twitter/bootstrap
 //= require_tree .
+
+
+$(document).ready(function () {
+    $(".alert" ).fadeOut(3000);
+});
