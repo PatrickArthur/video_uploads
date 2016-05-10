@@ -106,7 +106,6 @@ function getAjax(path) {
 }
 
 function appPosts(data) {
-  debugger;
   for (var i = 0; i < data.length; i++) {
     var d_id = "prof-post_"+data[i].id
     $(".profile-posts").html('<p class=' + d_id + '>' + data[i].post + '</p>');
