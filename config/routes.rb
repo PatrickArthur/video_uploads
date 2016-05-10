@@ -5,7 +5,19 @@ Rails.application.routes.draw do
   root 'home#welcome'
 
   match 'home/welcome' => 'home#welcome', :via => [:get]
-  resources :users, only: [:index, :show, :new, :create, :edit] do
+  resources :users, only: [:index] do
     resources :attachments, only: [:index, :new, :create]
   end
+
+  resources :profiles, only: [:index, :new, :create, :show, :destroy]
+
+
+ namespace :api do
+   resources :profiles, :except => [:new, :create, :edit, :update, :show, :destroy] do
+     member do
+       post 'post_inputs'
+       get 'post_outputs'
+     end
+   end
+ end
 end

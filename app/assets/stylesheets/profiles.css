@@ -1,0 +1,39 @@
+.control-label {
+  padding-bottom: 25px;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display:table;
+}
+body {
+    display:table-cell;
+    vertical-align:middle;
+}
+
+form {
+    display:table;/* shrinks to fit content */
+    margin:auto;
+    position: relative;
+    left: 250px;
+
+}
+
+.avatar {
+    position: relative;
+    left: 75px;
+    padding-bottom: 10px;
+}
+
+.user-show {
+    position: relative;
+    left: 75px;
+    bottom: 150px;
+}
+
+
+
+

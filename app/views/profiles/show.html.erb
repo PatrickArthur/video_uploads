@@ -1,0 +1,13 @@
+<div class="user-show">
+  <%= image_tag @profile.avatar.url(:thumb) %></br></br>
+  <%= @profile.name %></br><hr>
+  <%= link_to "remove", {:controller => :profiles ,:action => 'destroy', :id => @profile.id }, :method => :delete, class: "btn btn-xs btn-danger glyphicon glyphicon-remove" %>
+</div>
+
+<%= form_tag post_inputs_api_profile_path(@profile.id), remote: true, id: "ajax_post", class: "form-group" do %>
+<%= text_field_tag :post, params[:ost], class: "form-control"%>
+<%= submit_tag "Post", class: "prof_post btn btn-primary" %>
+<% end %>
+
+<div class="profile-posts">
+<div>

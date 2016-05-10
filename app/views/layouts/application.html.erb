@@ -5,6 +5,7 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <%= favicon_link_tag 'favicon.ico' %>
 </head>
 <body>
 
@@ -15,8 +16,10 @@
       </div>
       <ul class="nav navbar-nav">
         <li class="active"><%= link_to 'Home', home_welcome_path, class: "navbar-link" %></li>
-        <% if current_user.present? %>
-        <li><%= link_to 'Your Account', user_path(current_user.id), class: "navbar-link" %></li>
+        <% if current_user.profile.present? %>
+          <li><%= link_to 'Your Profile', profile_path(current_user.profile.id), class: "navbar-link" %></li>
+        <% else %>
+           <li><%= link_to 'New Profile', new_profile_path, class: "navbar-link" %></li>
         <% end %>
         <% if user_signed_in? %>
           Signed in as <%= current_user.email %>
@@ -29,16 +32,17 @@
     </div>
   </nav>
 
-<% flash.each do |key, value| %>
-  <% unless value == "" %>
-    <div class="alert alert-<%= key %>">
-      <%= content_tag :div, value, :id => "flash" %>
-    </div>
+  <% flash.each do |key, value| %>
+    <% unless value == "" %>
+      <div class="alert alert-<%= key %>">
+        <%= content_tag :div, value, :id => "flash" %>
+      </div>
+    <% end %>
   <% end %>
-<% end %>
 
-
-<%= yield %>
+  <div class="main-content">
+    <%= yield %>
+  </div>
 
 </body>
 </html>
