@@ -65,12 +65,22 @@ $(document).ready(function () {
   });
 });
 
+
+
 $(document).ready(function() {
-  $(".prof_post").on("click", function(event) {
-    var inputs = $("#ajax_post input").serialize();
-    var id = document.getElementById('ajax_post').action.split("/")[5]
-    var base = "/api/profiles/" + id
+  var prof_id = $('#profile_id').val();
+  var base = "/api/profiles/" + prof_id
+  getAjax(base, "/profile_posts")
+});
+
+$(document).ready(function() {
+  var prof_id = $('#profile_id').val();
+  $(".prof_post").click(function(e) {
+    e.preventDefault();
+    var base = "/api/profiles/" + prof_id
+    var inputs = $('#post').serialize();
     postAjax(inputs,base)
+    document.getElementById('post').value = ""
   });
 });
 
@@ -81,7 +91,7 @@ function postAjax(inputs,path) {
       data: inputs,
       success: function(data,xhr) {
         if (xhr == "success") {
-          getAjax(path)
+          getAjax(path, "/post_outputs")
         }
       },
       error: function() {
@@ -90,27 +100,62 @@ function postAjax(inputs,path) {
   });
 }
 
-function getAjax(path) {
-  var result="";
+function getAjax(path,action) {
   $.ajax({
-      url: path + "/post_outputs",
+      url: path + action,
       type: 'GET',
       dataType: 'json',
       success: function(data) {
-        appPosts(data)
+        debugger;
+        appPost(data,this.url.split("/")[4])
       },
-      error: function() {
+      error: function(data) {
         console.log("error");
       },
   });
 }
 
-function appPosts(data) {
-  for (var i = 0; i < data.length; i++) {
-    var d_id = "prof-post_"+data[i].id
-    $(".profile-posts").html('<p class=' + d_id + '>' + data[i].post + '</p>');
+function appPost(data,action) {
+  if (action == "post_outputs"){
+    showPosts(data)
+  }
+  else {
+    for (var i = 0; i < data.length; i++) {
+      showPosts(data[i])
+    }
   }
 }
+
+function showPosts(data) {
+  var d_id = "prof-post_"+data.id
+  var tim_id = "prof-post_create"+data.id
+  var del_id = "delete_post_"+data.id
+  $(".profile-posts").append('<p class=' + d_id + '> <input type="hidden" name="post-id" value=' +
+    data.id + '>' + data.post +'</p> </br> <div class="row"> <div class="col-sm-6"> <p class=' +
+    tim_id + '>' + data.created_at + '</p> </div> <div class="col-sm-2"> <input type="button" onclick="deletePost('
+    + data.id +');" class="del btn btn-xs btn-danger" value="x" id=' + '"'+ del_id + '"' + '/></div> </div>');
+}
+
+function deletePost(id) {
+  var base = "/api/posts/" + id
+  $.ajax({
+    url: base,
+    type: 'DELETE',
+    success: function(result,xhr) {
+      if (xhr == "success") {
+        debugger;
+        $('.prof-post_' + id).remove();
+        $('#delete_post_' + id).remove();
+        $('.prof-post_create' + id).remove();
+      }
+    },
+    error: function() {
+      console.log("error");
+    },
+});
+}
+
+
 
 
 

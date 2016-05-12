@@ -1,13 +1,29 @@
 <div class="user-show">
   <%= image_tag @profile.avatar.url(:thumb) %></br></br>
-  <%= @profile.name %></br><hr>
-  <%= link_to "remove", {:controller => :profiles ,:action => 'destroy', :id => @profile.id }, :method => :delete, class: "btn btn-xs btn-danger glyphicon glyphicon-remove" %>
-</div>
+  <div class="row">
+    <div class="col-sm-2">
+      <%= @profile.name %>
+    </div>
+    <div class="del-pro col-sm-1">
+      <%= link_to "remove", {:controller => :profiles ,:action => 'destroy', :id => @profile.id }, :method => :delete, class: "btn btn-xs btn-danger glyphicon glyphicon-remove" %>
+    </div>
+  </div>
+  </br><hr>
 
-<%= form_tag post_inputs_api_profile_path(@profile.id), remote: true, id: "ajax_post", class: "form-group" do %>
-<%= text_field_tag :post, params[:ost], class: "form-control"%>
-<%= submit_tag "Post", class: "prof_post btn btn-primary" %>
-<% end %>
+  <%= form_tag post_inputs_api_profile_path(@profile.id), remote: true, id: "ajax_post", class: "form-group" do %>
+    <%= hidden_field_tag 'profile_id', @profile.id %>
+    <div class="row">
+      <div class="col-sm-10">
+        <%= text_field_tag :post, params[:post], class: "form-control"%>
+      </div>
+      <div class="col-sm-2">
+        <%= submit_tag "Post", class: "prof_post btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
 
 <div class="profile-posts">
 <div>
+
+</div>
+

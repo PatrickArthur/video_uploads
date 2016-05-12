@@ -17,8 +17,6 @@ body {
 form {
     display:table;/* shrinks to fit content */
     margin:auto;
-    position: relative;
-    left: 250px;
 
 }
 
@@ -31,8 +29,27 @@ form {
 .user-show {
     position: relative;
     left: 75px;
-    bottom: 150px;
 }
+
+.del-pro {
+    position: relative;
+    right: 75px;
+}
+
+form#ajax_post {
+    position: relative;
+    right: 100px;
+}
+
+#post {
+  width: 350px;
+}
+
+.prof_post {
+    position: relative;
+    right: 40px;
+}
+
 
 
 

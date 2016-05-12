@@ -12,9 +12,23 @@ class Api::ProfilesController < ApplicationController
   end
 
   def post_outputs
-    posts = profile.posts
-    if posts.present?
-      render json: posts
+    post = profile.posts.last
+    if post.present?
+      render json: post
+    else
+      error = "errors"
+      render json: error
+    end
+  end
+
+  def profile_posts
+    prof_posts = []
+    profile.posts.each do |post|
+      prof_posts << profile.avatar
+      prof_posts << post
+    end
+    if prof_posts.present?
+      render json: prof_posts
     else
       error = "errors"
       render json: error

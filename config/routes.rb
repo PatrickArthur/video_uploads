@@ -17,7 +17,10 @@ Rails.application.routes.draw do
      member do
        post 'post_inputs'
        get 'post_outputs'
+       get 'profile_posts'
+       delete 'destroy_posts'
      end
    end
+   resources :posts, only: [:destroy]
  end
 end

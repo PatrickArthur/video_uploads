@@ -21,7 +21,9 @@ class ProfilesController < ApplicationController
 
   def destroy
     profile = Profile.find(params[:id])
-    if profile.destroy
+    if profile.present?
+      profile.posts.destoy_all
+      profile.destroy
       redirect_to new_profile_path, flash: { success: 'Deleted Profile' }
     else
       redirect_to profile_path(profile.id), flash: { danger: 'Error' }
