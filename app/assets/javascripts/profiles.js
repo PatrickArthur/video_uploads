@@ -1,27 +1,19 @@
 $(document).ready(function($){
-
   $("#profile_phone").mask("(999) 999-9999");
-
   $("#profile_phone").on("blur", function() {
     var last = $(this).val().substr( $(this).val().indexOf("-") + 1 );
-
     if( last.length == 3 ) {
-        var move = $(this).val().substr( $(this).val().indexOf("-") - 1, 1 );
-        var lastfour = move + last;
-
-        var first = $(this).val().substr( 0, 9 );
-
-        $(this).val( first + '-' + lastfour );
-     }
-   });
+      var move = $(this).val().substr( $(this).val().indexOf("-") - 1, 1 );
+      var lastfour = move + last;
+      var first = $(this).val().substr( 0, 9 );
+      $(this).val( first + '-' + lastfour );
+    }
+  });
 });
 
 $(document).ready(function () {
-
   $(".submit_bt").click(function(){
-
     getMissingFormElements("new_profile", missing = [])
-
     if (missing.length != 0 ) {
       for (i=0; i< missing.length; i++){
         var test = missing[i].split("_")[1]
@@ -29,10 +21,8 @@ $(document).ready(function () {
       }
       return false
     }
-
   });
 });
-
 
 function getMissingFormElements(formName,missing){
   var elements = document.forms[formName].elements;
@@ -43,7 +33,6 @@ function getMissingFormElements(formName,missing){
     }
   }
 }
-
 
 $(document).ready(function () {
   $(".ref_form.btn").click(function(){
@@ -64,8 +53,6 @@ $(document).ready(function () {
     }
   });
 });
-
-
 
 $(document).ready(function() {
   var prof_id = $('#profile_id').val();
@@ -152,11 +139,5 @@ function deletePost(id) {
     error: function() {
       console.log("error");
     },
-});
+  });
 }
-
-
-
-
-
-
