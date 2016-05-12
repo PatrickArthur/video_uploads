@@ -22,13 +22,9 @@ class Api::ProfilesController < ApplicationController
   end
 
   def profile_posts
-    prof_posts = []
-    profile.posts.each do |post|
-      prof_posts << profile.avatar
-      prof_posts << post
-    end
-    if prof_posts.present?
-      render json: prof_posts
+    posts = create_post_hash(profile)
+    if posts.present?
+      render json: posts
     else
       error = "errors"
       render json: error
@@ -39,5 +35,16 @@ class Api::ProfilesController < ApplicationController
 
   def profile
     @profile ||= Profile.find(params[:id])
+  end
+
+  def create_post_hash(profile)
+    hash = {}
+    array = []
+    profile.posts.each do |post|
+      array += [profile.avatar, post.post, post.created_at]
+      hash[post.id] = array
+      array = []
+    end
+    return hash
   end
 end
