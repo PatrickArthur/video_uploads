@@ -93,7 +93,7 @@ function getAjax(path,action) {
       type: 'GET',
       dataType: 'json',
       success: function(data) {
-        appPost(data,this.url.split("/")[4])
+        appPost(data)
       },
       error: function(data) {
         console.log("error");
@@ -101,15 +101,10 @@ function getAjax(path,action) {
   });
 }
 
-function appPost(data,action) {
-  if (action == "post_outputs"){
-    showPosts(data)
-  }
-  else {
-    $.each(data, function(key, value) {
-      showPosts(key,value)
-    });
-  }
+function appPost(data) {
+  $.each(data, function(key, value) {
+    showPosts(key,value)
+  });
 }
 
 function showPosts(key,value) {
@@ -117,8 +112,8 @@ function showPosts(key,value) {
   var tim_id = "prof-post_create"+key
   var del_id = "delete_post_"+key
   var img_id = "image_"+key
-  $(".profile-posts").append('<div class="row"> <div class=' + img_id + '</div> <img src=' + value[0] +
-    ' alt="img" style="width:25px;height:25px;"></div><div class="col-sm-6"><p class=' + d_id + '> <input type="hidden" name="post-id" value=' +
+  $(".profile-posts").append('<div class="row"><div class="col-sm-2"><div id='+ img_id +'><img src=' + value[0] +
+    ' alt="img" style="width:25px;height:25px;"></div></div><div class="col-sm-6"><p class=' + d_id + '> <input type="hidden" name="post-id" value=' +
     key + '>' + value[1] +'</p> </div></div></br> <div class="row"> <div class="col-sm-6"> <p class=' +
     tim_id + '>' + value[2] + '</p> </div> <div class="col-sm-2"> <input type="button" onclick="deletePost('
     + key +');" class="del btn btn-xs btn-danger" value="x" id=' + '"'+ del_id + '"' + '/></div> </div>');
@@ -134,6 +129,8 @@ function deletePost(id) {
         $('.prof-post_' + id).remove();
         $('#delete_post_' + id).remove();
         $('.prof-post_create' + id).remove();
+        var img = document.getElementById('image_' + id);
+        img.parentNode.removeChild(img)
       }
     },
     error: function() {
