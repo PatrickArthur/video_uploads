@@ -130,7 +130,6 @@ function deletePost(id) {
     type: 'DELETE',
     success: function(result,xhr) {
       if (xhr == "success") {
-        debugger;
         $('.prof-post_' + id).remove();
         $('#delete_post_' + id).remove();
         $('.prof-post_create' + id).remove();
