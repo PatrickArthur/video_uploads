@@ -17,9 +17,9 @@
       <ul class="nav navbar-nav">
         <li class="active"><%= link_to 'Home', home_welcome_path, class: "navbar-link" %></li>
         <% if current_user.profile.present? %>
-          <li><%= link_to 'Your Profile', profile_path(current_user.profile.id), class: "navbar-link" %></li>
+          <li><%= link_to 'Your Profile', profile_path(current_user.profile.id), class: "your-prof navbar-link" %></li>
         <% else %>
-           <li><%= link_to 'New Profile', new_profile_path, class: "navbar-link" %></li>
+           <li><%= link_to 'New Profile', new_profile_path, class: "new-prof navbar-link" %></li>
         <% end %>
         <% if user_signed_in? %>
           Signed in as <%= current_user.email %>

@@ -54,11 +54,23 @@ $(document).ready(function () {
   });
 });
 
+$(document).ready(function () {
+  $('li a.your-prof').click(function(){
+    var prof_id = this.href.split("/")[4];
+    loadPostIndex(prof_id);
+    location.reload();
+  });
+});
+
 $(document).ready(function() {
   var prof_id = $('#profile_id').val();
+  loadPostIndex(prof_id);
+});
+
+function loadPostIndex(prof_id) {
   var base = "/api/profiles/" + prof_id
   getAjax(base, "/profile_posts")
-});
+}
 
 $(document).ready(function() {
   var prof_id = $('#profile_id').val();
