@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160510012225) do
+ActiveRecord::Schema.define(version: 20160515170649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,10 +31,14 @@ ActiveRecord::Schema.define(version: 20160510012225) do
   add_index "attachments", ["user_id"], name: "index_attachments_on_user_id", using: :btree
 
   create_table "posts", force: :cascade do |t|
-    t.integer  "profile_id", default: 0,  null: false
-    t.string   "post",       default: "", null: false
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.integer  "profile_id",         default: 0,  null: false
+    t.string   "post",               default: "", null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "video_file_name"
+    t.string   "video_content_type"
+    t.integer  "video_file_size"
+    t.datetime "video_updated_at"
   end
 
   add_index "posts", ["id"], name: "index_posts_on_id", unique: true, using: :btree
